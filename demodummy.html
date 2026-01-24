@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fietsbel Community Edition — Edge AI Demos</title>
+  <style>
+    /* Tufte-inspired minimal style */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: "ETBembo", Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      font-size: 1.4rem;
+      line-height: 2rem;
+      max-width: 55rem;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      color: #111;
+      background: #fffff8;
+    }
+    
+    h1 {
+      font-weight: 400;
+      font-size: 3.2rem;
+      line-height: 1.2;
+      margin-bottom: 1.4rem;
+    }
+    
+    h2 {
+      font-weight: 400;
+      font-size: 2.2rem;
+      margin-top: 4rem;
+      margin-bottom: 1.4rem;
+      font-style: italic;
+    }
+    
+    h3 {
+      font-weight: 400;
+      font-size: 1.7rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      margin-bottom: 1.4rem;
+    }
+    
+    a {
+      color: #111;
+      text-decoration: none;
+      border-bottom: 1px solid #ccc;
+    }
+    
+    a:hover {
+      border-bottom: 1px solid #111;
+    }
+    
+    /* Disclosure triangles */
+    details {
+      margin: 1.4rem 0;
+      padding-left: 1rem;
+      border-left: 2px solid #ddd;
+    }
+    
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      list-style: none;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    
+    summary::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      transition: transform 0.2s;
+    }
+    
+    details[open] summary::before {
+      transform: rotate(90deg);
+    }
+    
+    /* Demo interaction areas */
+    .demo {
+      margin: 2rem 0;
+      padding: 1rem;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+    }
+    
+    input, textarea, button {
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      margin: 0.5rem 0;
+    }
+    
+    button {
+      background: #111;
+      color: #fff;
+      cursor: pointer;
+      border: none;
+    }
+    
+    button:hover {
+      background: #333;
+    }
+    
+    /* Status indicators */
+    .status {
+      font-size: 1rem;
+      color: #666;
+      font-style: italic;
+    }
+    
+    .status.ready::before { content: "✓ "; color: green; }
+    .status.loading::before { content: "⋯ "; }
+    .status.error::before { content: "✗ "; color: red; }
+    
+    /* Code blocks */
+    code {
+      font-family: "Consolas", "Monaco", monospace;
+      background: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      font-size: 0.9em;
+    }
+    
+    pre {
+      background: #f9f9f9;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-left: 3px solid #ccc;
+    }
+    
+    /* Sidenotes (Tufte hallmark) */
+    .sidenote {
+      font-size: 1rem;
+      color: #666;
+      margin-left: 2rem;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Fietsbel Community Edition</h1>
+  <p class="sidenote">
+    Local AI demonstrations — no cloud, no tracking, no API keys.
+  </p>
+
+  <section>
+    <h2>Prerequisites</h2>
+    <p>
+      Before exploring these demos, ensure you have:
+    </p>
+    <ul>
+      <li>CouchDB running on <a href="http://localhost:5984">localhost:5984</a></li>
+      <li>llama.cpp models loaded (see status below)</li>
+    </ul>
+    
+    <details>
+      <summary>Model Status</summary>
+      <div class="demo">
+        <p class="status ready">Granite 350M (Fast) — Port 8081</p>
+        <p class="status ready">Granite 3B (Quality) — Port 8083</p>
+        <p class="status error">Granite Vision 2B — Not loaded</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- Section 1: Fast Classification -->
+  <section>
+    <h2>1. Lightning-Fast Classification (350M)</h2>
+    <p>
+      The 350M model excels at rapid classification tasks. 
+      Response times under 500ms demonstrate what edge AI can do.
+    </p>
+    
+    <details>
+      <summary>PII Detection</summary>
+      <div class="demo">
+        <textarea placeholder="Paste text containing potential PII..."></textarea>
+        <button>Detect PII</button>
+        <div class="result"></div>
+      </div>
+      <p class="sidenote">
+        Grammar constraints ensure structured output — no post-processing needed.
+      </p>
+    </details>
+    
+    <details>
+      <summary>Sentiment Analysis</summary>
+      <div class="demo">
+        <textarea placeholder="Enter a review or comment..."></textarea>
+        <button>Analyze Sentiment</button>
+        <div class="result"></div>
+      </div>
+    </details>
+    
+    <details>
+      <summary>Intent Classification</summary>
+      <div class="demo">
+        <textarea placeholder="Customer message..."></textarea>
+        <button>Classify Intent</button>
+        <div class="result"></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- Section 2: Reasoning & Tools -->
+  <section>
+    <h2>2. Reasoning & Tool Use (3B)</h2>
+    <p>
+      The 3B model handles complex instructions, tool calling, 
+      and multi-step reasoning.
+    </p>
+    
+    <details>
+      <summary>CSV Analysis with Tool Use</summary>
+      <div class="demo">
+        <input type="file" accept=".csv">
+        <button>Analyze</button>
+        <pre class="result"></pre>
+      </div>
+      <p class="sidenote">
+        Model generates JavaScript, browser executes it safely.
+      </p>
+    </details>
+    
+    <details>
+      <summary>The Strawberry Test</summary>
+      <div class="demo">
+        <p>How many letters in "strawberry"?</p>
+        <button>Ask without tools</button>
+        <button>Ask with tools</button>
+        <div class="result"></div>
+      </div>
+      <p class="sidenote">
+        Demonstrates why tool use matters for reasoning failures.
+      </p>
+    </details>
+    
+    <details>
+      <summary>Temperature & Top-P Effects</summary>
+      <div class="demo">
+        <label>Temperature: <input type="range" min="0" max="2" step="0.1" value="0.7"></label>
+        <label>Top-P: <input type="range" min="0" max="1" step="0.05" value="0.9"></label>
+        <textarea placeholder="Prompt..."></textarea>
+        <button>Generate</button>
+        <div class="result"></div>
+      </div>
+    </details>
+    
+    <details>
+      <summary>MCP Integration: SearchXNG</summary>
+      <div class="demo">
+        <input type="url" placeholder="SearXNG instance URL">
+        <textarea placeholder="What do you want to search for?"></textarea>
+        <button>Search & Synthesize</button>
+        <div class="result"></div>
+      </div>
+      <p class="sidenote">
+        Point to your own SearXNG instance — no centralized services.
+      </p>
+    </details>
+    
+    <details>
+      <summary>MCP Integration: Browser Clipboard</summary>
+      <div class="demo">
+        <button>Analyze Clipboard</button>
+        <div class="result"></div>
+      </div>
+    </details>
+    
+    <details>
+      <summary>Code Generation & Explanation</summary>
+      <div class="demo">
+        <textarea placeholder="Describe what code you need..."></textarea>
+        <button>Generate Code</button>
+        <pre class="result"></pre>
+      </div>
+    </details>
+  </section>
+
+  <!-- Section 3: Guardrails -->
+  <section>
+    <h2>3. Guardrails Without Extra Models</h2>
+    <p>
+      Compliance through architecture: grammar constraints, 
+      logit bias, and Mirostat all work at inference time.
+    </p>
+    
+    <details>
+      <summary>Grammar-Constrained JSON Output</summary>
+      <div class="demo">
+        <textarea placeholder="Prompt..."></textarea>
+        <label><input type="checkbox" checked> Force valid JSON</label>
+        <button>Generate</button>
+        <pre class="result"></pre>
+      </div>
+      <p class="sidenote">
+        Output is guaranteed parseable — no "Here is the JSON: {..." preambles.
+      </p>
+    </details>
+    
+    <details>
+      <summary>Logit Bias: Block Unwanted Tokens</summary>
+      <div class="demo">
+        <textarea placeholder="Try to make it say something inappropriate..."></textarea>
+        <label><input type="checkbox" checked> Apply profanity filter</label>
+        <button>Generate</button>
+        <div class="result"></div>
+      </div>
+    </details>
+    
+    <details>
+      <summary>Mirostat: Prevent Rambling</summary>
+      <div class="demo">
+        <textarea placeholder="Long-form prompt..."></textarea>
+        <label><input type="checkbox" checked> Enable Mirostat</label>
+        <button>Generate</button>
+        <div class="result"></div>
+      </div>
+    </details>
+    
+    <details>
+      <summary>EU AI Act Compliance</summary>
+      <p>
+        All guardrails operate locally, with no data leaving the device. 
+        This architecture satisfies:
+      </p>
+      <ul>
+        <li><strong>Article 9</strong>: Risk management (grammar prevents unsafe outputs)</li>
+        <li><strong>Article 13</strong>: Transparency (all processing visible)</li>
+        <li><strong>Article 15</strong>: Accuracy (Mirostat controls quality)</li>
+      </ul>
+    </details>
+  </section>
+
+  <!-- Section 4: Knowledge Work -->
+  <section>
+    <h2>4. Document Intelligence (3B + Embeddings)</h2>
+    <p>
+      RAG (Retrieval-Augmented Generation) with visible steps. 
+      All processing happens in your browser.
+    </p>
+    
+    <details>
+      <summary>Chat with PDF</summary>
+      <div class="demo">
+        <input type="file" accept=".pdf">
+        <button>Process Document</button>
+        <div class="status"></div>
+        <textarea placeholder="Ask a question about the document..."></textarea>
+        <button>Ask</button>
+        <div class="result"></div>
+      </div>
+      <p class="sidenote">
+        Steps: Parse → Chunk → Embed → Search → Answer. 
+        Watch each phase complete.
+      </p>
+    </details>
+    
+    <details>
+      <summary>Multi-Document Search</summary>
+      <div class="demo">
+        <input type="file" accept=".pdf" multiple>
+        <button>Index All</button>
+        <textarea placeholder="Search across all documents..."></textarea>
+        <button>Search</button>
+        <div class="result"></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- Section 5: LoRA Adapters (Placeholder) -->
+  <section>
+    <h2>5. LoRA Adapters (Coming Soon)</h2>
+    <p>
+      Fietsbel supports dynamic loading of LoRA adapters for 
+      task-specific fine-tuning. Custom Granite 4 adapters 
+      will be published once trained.
+    </p>
+    
+    <details>
+      <summary>What are LoRAs?</summary>
+      <p>
+        Low-Rank Adaptation (LoRA) allows efficient fine-tuning 
+        of models for specific domains without retraining the 
+        entire model. Think of them as "plugins" for AI models.
+      </p>
+    </details>
+    
+    <details>
+      <summary>Deterministic Multi-LoRA Pipeline</summary>
+      <p>
+        Instead of having an AI "choose" which adapter to use, 
+        Fietsbel uses structured workflows (n8n/PDL-style) where 
+        each step explicitly declares which LoRA to load.
+      </p>
+      <pre><code>{
+  "pipeline": [
+    {"lora": "medical", "task": "extract diagnoses"},
+    {"lora": "legal", "task": "identify coverage"},
+    {"lora": "financial", "task": "estimate cost"}
+  ]
+}</code></pre>
+    </details>
+  </section>
+
+  <!-- Section 6: Vision -->
+  <section>
+    <h2>6. Multimodal Intelligence (Vision 2B)</h2>
+    <p>
+      Granite 3.2 Vision handles images, charts, and technical drawings.
+    </p>
+    
+    <details>
+      <summary>Technical Drawing: Title Block OCR</summary>
+      <div class="demo">
+        <input type="file" accept="image/*">
+        <button>Analyze (3-Pass)</button>
+        <div class="status"></div>
+        <div class="result"></div>
+      </div>
+      <p class="sidenote">
+        Pass 1: Bounding boxes<br>
+        Pass 2: Field analysis<br>
+        Pass 3: Disambiguation & JSON output
+      </p>
+    </details>
+    
+    <details>
+      <summary>Image Description</summary>
+      <div class="demo">
+        <input type="file" accept="image/*">
+        <button>Describe</button>
+        <div class="result"></div>
+      </div>
+    </details>
+    
+    <details>
+      <summary>Visual Q&A</summary>
+      <div class="demo">
+        <input type="file" accept="image/*">
+        <textarea placeholder="Ask a question about the image..."></textarea>
+        <button>Ask</button>
+        <div class="result"></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- Section 7: Honest Limitations -->
+  <section>
+    <h2>7. What Edge AI Can't Do (Yet)</h2>
+    <p>
+      Honesty about limitations builds trust. Here's what 
+      small models struggle with:
+    </p>
+    
+    <details>
+      <summary>Complex Reasoning Failures</summary>
+      <div class="demo">
+        <p>Ask: "If a train leaves at 2pm going 60mph for 3 hours, 
+        and another leaves at 3pm going 80mph, when do they meet?"</p>
+        <button>Try 350M</button>
+        <button>Try 3B</button>
+        <div class="result"></div>
+      </div>
+      <p class="sidenote">
+        350M will likely fail. 3B might get it right with 
+        chain-of-thought prompting.
+      </p>
+    </details>
+    
+    <details>
+      <summary>Context Length Limits</summary>
+      <p>
+        Granite models support up to 8K-32K tokens depending on variant. 
+        Very long documents need chunking strategies (RAG).
+      </p>
+    </details>
+    
+    <details>
+      <summary>Hallucinations</summary>
+      <div class="demo">
+        <p>Ask: "When did Napoleon visit America?"</p>
+        <button>Generate Answer</button>
+        <div class="result"></div>
+      </div>
+      <p class="sidenote">
+        Models will confidently generate false information. 
+        Always verify facts against sources.
+      </p>
+    </details>
+    
+    <details>
+      <summary>Creative Writing Quality</summary>
+      <p>
+        Small models (≤3B) produce functional but rarely beautiful prose. 
+        For creative work, larger models (7B+) or cloud AI may be better.
+      </p>
+    </details>
+  </section>
+
+  <!-- Footer -->
+  <section>
+    <h2>About Fietsbel</h2>
+    <p>
+      Fietsbel (Dutch: "bicycle bell") represents respectful, 
+      personal, frugal AI. All processing happens on your device. 
+      No cloud services, no tracking, no API keys.
+    </p>
+    <p>
+      <a href="https://github.com/your-org/fietsbel-platform">View on GitHub</a>
+    </p>
+  </section>
+
+</body>
+</html>
