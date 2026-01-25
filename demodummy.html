@@ -149,7 +149,7 @@
 
   <h1>Fietsbel Community Edition</h1>
   <p class="sidenote">
-    Local AI demonstrations — no cloud, no tracking, no API keys.
+    Local AI demonstrations. No cloud, no tracking, no API keys.
   </p>
 
   <section>
@@ -158,15 +158,14 @@
       Before exploring these demos, ensure you have:
     </p>
     <ul>
-      <li>CouchDB running on <a href="http://localhost:5984">localhost:5984</a></li>
       <li>llama.cpp models loaded (see status below)</li>
     </ul>
     
     <details>
       <summary>Model Status</summary>
       <div class="demo">
-        <p class="status ready">Granite 350M (Fast) — Port 8081</p>
-        <p class="status ready">Granite 3B (Quality) — Port 8083</p>
+        <p class="status ready">Granite 350M (Fast) — Port 18081</p>
+        <p class="status ready">Granite 3B (Quality) — Port 18083</p>
         <p class="status error">Granite Vision 2B — Not loaded</p>
       </div>
     </details>
@@ -200,6 +199,25 @@
         <div class="result"></div>
       </div>
     </details>
+
+    <details>
+      <summary>Guard rails for HAP</summary>
+      <div class="demo">
+        <textarea placeholder="Customer message..."></textarea>
+        <button>Detect HAP (hate, abuse, profanity)</button>
+        <div class="result"></div>
+      </div>
+    </details>
+
+        <details>
+      <summary>Guard rails for risks</summary>
+      <div class="demo">
+        <textarea placeholder="Customer message..."></textarea>
+        <button>Detect risks (jailbreaking, wrongful use, passwords, API keys)</button>
+        <div class="result"></div>
+      </div>
+    </details>
+
   </section>
 
   <!-- Section 2: Reasoning & Tools -->
@@ -247,7 +265,7 @@
     </details>
     
     <details>
-      <summary>MCP Integration: SearchXNG</summary>
+      <summary>MCP Integration: SearchXNG (your own, controllable AI search summaries)</summary>
       <div class="demo">
         <input type="url" placeholder="SearXNG instance URL">
         <textarea placeholder="What do you want to search for?"></textarea>
@@ -279,7 +297,7 @@
 
   <!-- Section 3: Guardrails -->
   <section>
-    <h2>3. Guardrails Without Extra Models</h2>
+    <h2>3. Guardrails for "free" (in part): built in advanced features</h2>
     <p>
       Compliance through architecture: grammar constraints, 
       logit bias, and Mirostat all work at inference time.
@@ -344,7 +362,7 @@
       <summary>Chat with PDF</summary>
       <div class="demo">
         <input type="file" accept=".pdf">
-        <button>Process Document</button>
+        <button>Process Document (parsed with Docling in webgpu)</button>
         <div class="status"></div>
         <textarea placeholder="Ask a question about the document..."></textarea>
         <button>Ask</button>
@@ -360,7 +378,7 @@
       <summary>Multi-Document Search</summary>
       <div class="demo">
         <input type="file" accept=".pdf" multiple>
-        <button>Index All</button>
+        <button>Index All (first parse with docling webgpu, then smart-chunk and embed)</button>
         <textarea placeholder="Search across all documents..."></textarea>
         <button>Search</button>
         <div class="result"></div>
@@ -405,13 +423,13 @@
 
   <!-- Section 6: Vision -->
   <section>
-    <h2>6. Multimodal Intelligence (Vision 2B)</h2>
+    <h2>6. Multimodal Intelligence (v1 with docling)</h2>
     <p>
       Granite 3.2 Vision handles images, charts, and technical drawings.
     </p>
     
     <details>
-      <summary>Technical Drawing: Title Block OCR</summary>
+      <summary>Technical Drawing: Title Block OCR (with docling)</summary>
       <div class="demo">
         <input type="file" accept="image/*">
         <button>Analyze (3-Pass)</button>
