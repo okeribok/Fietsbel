@@ -776,3 +776,97 @@ Laag │ 📊 Analytics        │ 🌍 Civil Society
 - **Hoog Power, Laag Interest**: Tevreden houden (keep satisfied)
 - **Laag Power, Hoog Interest**: Goed informeren (keep informed)
 - **Laag Power, Laag Interest**: Monitoren (monitor)
+
+## Diagrammen
+### Informatieflow met LoRA
+```mermaid
+sequenceDiagram
+    participant Gebruiker
+    participant Gekozen App
+    participant BaseModel
+    participant LoRA
+    Gebruiker->>Gekozen App: Start classificatie-4 (bv upload bestand)
+    Gekozen App->>BaseModel: Laad model (bv. Granite-350M)
+    BaseModel->>LoRA: Activeer "classificatie"-hoedje
+    LoRA-->>BaseModel: Pas modelgedrag aan
+    BaseModel-->>Gekozen App: Genereer output
+    Gekozen App-->>Gebruiker: Toon vertaling
+```
+
+### Ontwikkelen nieuwe LoRA
+```mermaid
+sequenceDiagram
+    participant Gebruiker
+    participant Ontwikkelaar
+    participant BaseModel
+    participant InstructLAB
+    Gebruiker->>Ontwikkelaar: Dit is mijn taak (voorbeeld in-uit)
+    Ontwikkelaar->>BaseModel: Prompt engineering
+    Ontwikkelaar->>Gebruiker: Voorbeeld uitvoeren
+    Gebruiker->>Ontwikkelaar: Verfijningen
+		Ontwikkelaar->>InstructLAB: Maak van deze prompt een LoRA
+		Ontwikkelaar->>Gebruiker: Beta-App met Beta-LoRA
+```
+
+### Hoe werkt InstructLAB
+```mermaid
+sequenceDiagram
+    participant Ontwikkelaar
+    participant (IL) Model evaluator
+    participant (IL) Taxonomy
+    participant (IL) Data Synthesizer
+	  participant (IL) LoRA trainer
+    Ontwikkelaar->>(IL) Model evaluator: test base model met prompt
+    (IL) Model evaluator->>Ontwikkelaar: testresultaten en hiaten in kennis & vaardigheden
+    Ontwikkelaar->>(IL) Taxonomy: voegt kennis & vaardigheden toe
+    (IL) Taxonomy->>(IL) Data Synthesizer: Maak trainingsdata om hiaten te vullen
+		(IL) Data Synthesizer->>(IL) LoRA trainer:  Maak een Lora voor dit basemodel met deze data 
+		(IL) LoRA trainer->>(IL) Model evaluator: Evalueer basemodel + LoRA voor de taak
+		(IL) Model evaluator->>Ontwikkelaar: nieuwe LoRA voor deze taak met dit basemodel
+		 
+```
+
+### Het verschillen en overlap tussen de edities
+```mermaid
+treemap-beta
+    "Fietsbel edities"
+        "Enterprise Peripheral"
+            "beveiligde distributie" : 7
+            "beveiligde logging" : 4
+            "edge analysis" : 3
+                "Community Edition (CE)"
+                    "AI Motor" : 10
+                    "Modellen <5B" : 8
+                    "LoRA's" : 2
+                    "Apps" : 5
+                    "MCP" : 2
+        "Enterprise High Assurance"
+            "beveiligde distributie" : 7
+            "edge analysis" : 3
+            "edge rapportage" : 4
+                "Basis minus MCP "
+                    "AI Motor" : 10
+                    "Modellen <5B" : 8
+                    "LoRA's" : 2
+                    "Apps" : 5
+        "Enterprise Server"
+            "beveiligde distributie" : 7
+            "beveiligde logging" : 4
+            "edge analysis" : 3
+                "Basis minus MCP en Apps"
+                    "AI Motor" : 10
+                    "Modellen >5B" : 8
+                    "LoRA's" : 2
+```
+
+### Hoe werkt Enterprise Server met Enterprise Peripheral
+```mermaid
+sequenceDiagram
+    participant Gebruiker
+    participant Fietsbel EE Peripheral App
+    participant Fietsbel EE Server
+    Gebruiker->>Fietsbel EE Peripheral App: Start P app
+    Fietsbel EE Peripheral App->>Fietsbel EE Server: losse taken groot model (+ evt LoRA)
+    Fietsbel EE Server->>Fietsbel EE Peripheral App: resultaten groot model
+    Fietsbel EE Peripheral App->>Gebruiker: alsof het altijd al een Edge App was
+```
