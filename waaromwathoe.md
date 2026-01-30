@@ -268,8 +268,6 @@ De hartslag draait los van de rest, zodat die ook werkt als Fietsbel vastloopt.
 
 **Let op**: P en HA kunnen niet samen. S kan naast P (op verschillende computers).
 
-## ✏️Schematische weergaves
-## 🧀Ingebouwde risico beheersing
 ## ⁉️Vraag en Antwoord
 
 ### Algemeen
