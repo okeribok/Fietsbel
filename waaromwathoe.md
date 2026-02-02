@@ -333,6 +333,13 @@ Voor de Server (S) versie voor grotere modellen:
 - Eventueel GPU voor snelheid
 - Meer schijfruimte
 
+#### Welke besturingssystemen worden ondersteund?
+- Windows (Windows 10 en nieuwer)
+- Linux (Ubuntu, Debian, Red Hat)
+- macOS
+
+In bedrijven wordt het meestal via Ivanti of vergelijkbare software uitgerold.
+
 #### Hoe snel is Fietsbel?
 Dat hangt af van het model en je computer:
 - Kleine modellen (350M): 150-680 woorden per seconde
@@ -341,12 +348,19 @@ Dat hangt af van het model en je computer:
 
 Dit is langzamer dan ChatGPT, maar voor de meeste taken snel genoeg.
 
-#### Welke besturingssystemen worden ondersteund?
-- Windows (Windows 10 en nieuwer)
-- Linux (Ubuntu, Debian, Red Hat)
-- macOS
+#### Wat is het verschil tussen Fietsbel en LM Studio?
 
-In bedrijven wordt het meestal via Ivanti of vergelijkbare software uitgerold.
+Beide gebruiken Llama.cpp om AI-modellen lokaal te draaien. LM Studio is een gereedschapskist voor individuele hobbyisten die zelf willen leren en experimenteren. Fietsbel levert kant-en-klare Apps die direct werken, zonder dat je AI-kennis nodig hebt. Het grootste verschil: Fietsbel ondersteunt LoRA's voor specialistische taken en agentic workflows, heeft enterprise beveiliging en governance, en is gebouwd voor teams die aan wetten moeten voldoen.
+
+| Aspect | Fietsbel | LM Studio |
+|--------|----------|-----------|
+| **Voor wie** | Organisaties, teams, compliance | Individuele experimenteerders |
+| **LoRA ondersteuning** | Ja, met hot-swapping | Nee |
+| **Apps** | Taakgericht, guardrails ingebouwd | Vrije chat, zelf configureren |
+| **Agentic workflows** | Ja, deterministisch | Nee |
+| **Multi-user / MDM** | Ja, via distributiesysteem | Nee, alleen single-user |
+| **Compliance / Audit** | AVG, AI Act, audit trails | Geen |
+| **Enterprise beveiliging** | Zero-trust, air-gap, versleuteling | Basis beveiliging |
 
 #### Kan Fietsbel samenwerken met andere systemen?
 Ja, via het Model Context Protocol (MCP) kunnen Apps verbinding maken met:
