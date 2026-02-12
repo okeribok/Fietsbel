@@ -146,7 +146,7 @@ Carol,35,Utrecht</textarea>
 
         <details>
             <summary>The Strawberry Test</summary>
-            <p>How many letters in "strawberry"?</p>
+            <p>How many letters "R" in "strawberry"?</p>
             <button onclick="askStrawberry(false)">Ask without tools</button>
             <button onclick="askStrawberry(true)">Ask with tools</button>
             <div id="strawberry-output" class="output" style="display:none;"></div>
@@ -560,9 +560,9 @@ Examples:
         function askStrawberry(withTools) {
             document.getElementById('strawberry-output').style.display = 'block';
             if (withTools) {
-                document.getElementById('strawberry-output').textContent = 'Using letter counter tool...\nResult: 10 letters (s-t-r-a-w-b-e-r-r-y)';
+                document.getElementById('strawberry-output').textContent = 'Using letter counter tool...\nResult: 3 "R" in Strawberry';
             } else {
-                document.getElementById('strawberry-output').textContent = 'There are 11 letters in "strawberry".\n(Incorrect - demonstrates reasoning failure)';
+                document.getElementById('strawberry-output').textContent = 'The letter "R" appears twice in "strawberry".\n(Incorrect - demonstrates reasoning failure)';
             }
         }
         
