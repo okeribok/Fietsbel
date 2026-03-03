@@ -11,6 +11,7 @@ Fietsbel is voor en door de overheid bedacht, om veel problemen van tevoren op t
 * Fietsbel is vanaf de bodem wettig gebouwd.
 * Fietsbel is zo veilig als het maar kan.
 * Fietsbel maakt slim onderzoek makkelijk.
+* Fietsbel is bedoeld als platform voor assistentie bij afgebakende interne taken, zonder automatische beslissingen in de zin van Annex III van de Ai-verordening.
 #### 🔓Gratis (Open Source)
 Wij maken Fietsbel met onderdelen die er al waren, die al gratis zijn. Het valt eigenlijk wel mee hoe veel werk het nog is om die onderdelen aan elkaar te knopen. Dit kon "erbij" gedaan worden door maar een paar mensen.
 Dat het "open source" is, betekent ook dat iedereen precies kan zien hoe het werkt. Iedereen die het interessant vindt, kan ernaar kijken, vragen stellen en zelf verbeteringen bedenken. Dan is het niet meer "een paar mensen die het erbij doet" is, maar de hele wereld. En dat maakt het veiliger, omdat fouten eerder ontdekt worden.
@@ -133,7 +134,7 @@ En zelfs als het al op je werklaptop staat, wil je zeker weten dat er niets vera
 De hartslag draait los van de rest, zodat die ook werkt als Fietsbel vastloopt.
 ## Enterprise Edities: Verschillen tussen P, HA en S
 
-### 📱 Periphery (P) - Standaard Editie
+### 📱 Peripheral (P) - Standaard Editie
 
 **Voor wie**: De meeste organisatiemedewerkers
 
@@ -232,7 +233,7 @@ De hartslag draait los van de rest, zodat die ook werkt als Fietsbel vastloopt.
 
 ### 🔄 Samenvatting Verschillen
 
-| Aspect | P (Periphery) | HA (High Assurance) | S (Server) |
+| Aspect | P (Peripheral) | HA (High Assurance) | S (Server) |
 |--------|---------------|---------------------|------------|
 | **Locatie** | Je eigen laptop | Je eigen laptop (of afgesloten) | Organisatieserver |
 | **Max classificatie** | Departementaal Vertrouwelijk | Staatsgeheim | Departementaal Vertrouwelijk |
@@ -458,6 +459,29 @@ De overheid mag geen systemen gebruiken die getraind zijn op gestolen of onrecht
 * de licentie duidelijk is
 * de training controleerbaar is
 Dat maakt gebruik juridisch en ethisch verdedigbaar. Betrouwbaarheid is belangrijker dan maximale grootte. Ook hier: een goedgekeurd model dat je mag gebruiken is altijd beter dan een verboden model dat misschien meer kan.
+
+#### Hoe we voorkomen dat iemand “zomaar” AI kan aanroepen
+
+Op elke laptop staat de AI-motor niet als los programma dat je zelf kunt starten.
+De AI draait alleen binnen de Fietsbel-app.
+
+Dat werkt zo:
+
+* De AI-motor zit ingepakt in een beveiligde uitvoering.
+* Alleen de Fietsbel-app mag die motor starten.
+* Bij het starten controleert de motor of het verzoek echt van de officiële app komt.
+* Die controle gebeurt met een unieke, lokaal ondertekende identiteit van het apparaat.
+* Zonder die geldige ondertekening start de AI niet.
+
+Daarnaast:
+
+* Alleen door Ivanti verspreide programma’s mogen worden uitgevoerd.
+* Modellen worden behandeld als programma’s en zijn ook ondertekend.
+* Bestanden uit bijvoorbeeld Kladblok of een zelfgemaakt script kunnen de AI niet direct benaderen.
+* De AI luistert niet naar open netwerkpoorten, maar alleen naar een interne verbinding die uitsluitend door de officiële app gebruikt kan worden.
+
+Hierdoor kan een medewerker niet zelf een model laden of de AI voor een ander doel gebruiken.
+De AI werkt uitsluitend via de gecontroleerde Fietsbel-omgeving.
 
 
 ### Beta-modus
